@@ -456,17 +456,17 @@ At $k=3$, the state vector rotates past the target axis $\lvert w \rangle$ towar
 
 ---
 
-## 8. Formal Scientific Explanation
+## 8. Scientific Explanation
 
-> **How does your application use superposition, an oracle, phase marking, interference, and amplitude amplification to identify the target pattern?**
->
-> 1. **Superposition**: The Hadamard transform $H^{\otimes 3}$ initializes an equiprobable state vector $\lvert s \rangle = \frac{1}{\sqrt{8}}\sum_{x=0}^7 \lvert x \rangle$, mapping the search space into an 8-state coherent quantum parallel superposition.
-> 2. **Oracle**: A dynamic unitary operator $U_w$ is synthesized via bit-conditional Pauli-$X$ conjugation around a multi-controlled phase gate ($CCZ$), targeting $\lvert w \rangle$ dynamically without hardcoding.
-> 3. **Phase Marking**: Rather than altering probabilities directly, the oracle applies a selective Householder reflection $U_w \lvert x \rangle = (-1)^{\delta_{x,w}}\lvert x \rangle$, shifting the relative phase of the target pattern by $\pi$ radians while leaving non-target states invariant.
-> 4. **Interference**: The diffusion operator $U_s = 2\lvert s \rangle \langle s \rvert - I$ reflects state vectors about the mean amplitude $\mu = \frac{1}{8}\sum_x a_x$, triggering destructive quantum interference that cancels out non-target probability amplitudes.
-> 5. **Amplitude Amplification**: Concurrently, the inverted negative amplitude of the marked target state undergoes constructive interference, flipping about the mean ($a_w \mapsto 2\mu - a_w$) and boosting its magnitude.
-> 6. **Subspace Evolution**: In the 2D invariant subspace $\text{span}\{\lvert w^\perp \rangle, \lvert w \rangle\}$, each Grover iteration rotates the quantum state toward $\lvert w \rangle$ by ${2\theta} \approx 41.41^\circ$, achieving an analytical detection probability of $\frac{121}{128} \approx 94.53\%$ after exactly $R = 2$ iterations.
-> 7. **Measurement Readout**: Projective computational basis measurement collapses the amplified wave function with near certainty (>94%) onto the classical 3-bit register matching the user's target pattern.
+**How does my application use superposition, an oracle, phase marking, interference, and amplitude amplification to identify the target pattern?**
+
+1. **Superposition**: The Hadamard transform $H^{\otimes 3}$ initializes an equiprobable state vector $\lvert s \rangle = \frac{1}{\sqrt{8}}\sum_{x=0}^7 \lvert x \rangle$, mapping the search space into an 8-state coherent quantum parallel superposition.
+2. **Oracle**: A dynamic unitary operator $U_w$ is synthesized via bit-conditional Pauli-$X$ conjugation around a multi-controlled phase gate ($CCZ$), targeting $\lvert w \rangle$ dynamically without hardcoding.
+3. **Phase Marking**: Rather than altering probabilities directly, the oracle applies a selective Householder reflection $U_w \lvert x \rangle = (-1)^{\delta_{x,w}}\lvert x \rangle$, shifting the relative phase of the target pattern by $\pi$ radians while leaving non-target states invariant.
+4. **Interference**: The diffusion operator $U_s = 2\lvert s \rangle \langle s \rvert - I$ reflects state vectors about the mean amplitude $\mu = \frac{1}{8}\sum_x a_x$, triggering destructive quantum interference that cancels out non-target probability amplitudes.
+5. **Amplitude Amplification**: Concurrently, the inverted negative amplitude of the marked target state undergoes constructive interference, flipping about the mean ($a_w \mapsto 2\mu - a_w$) and boosting its magnitude.
+6. **Subspace Evolution**: In the 2D invariant subspace $\text{span}\{\lvert w^\perp \rangle, \lvert w \rangle\}$, each Grover iteration rotates the quantum state toward $\lvert w \rangle$ by ${2\theta} \approx 41.41^\circ$, achieving an analytical detection probability of $\frac{121}{128} \approx 94.53\%$ after exactly $R = 2$ iterations.
+7. **Measurement Readout**: Projective computational basis measurement collapses the amplified wave function with near certainty (>94%) onto the classical 3-bit register matching the user's target pattern.
 
 ---
 

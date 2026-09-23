@@ -11,7 +11,7 @@
 
 Unstructured database search constitutes a foundational problem in quantum query complexity. While classical deterministic and randomized algorithms require $\Omega(N)$ queries in the worst case and $(N+1)/2$ queries on average to isolate a target item within an unsorted space of size $N$, Grover's algorithm achieves quadratic speedup in $\mathcal{O}(\sqrt{N})$ queries by orchestrating coherent quantum interference.
 
-This repository presents a fully generalized, dynamic Quantum Pattern Search architecture implemented in Qiskit for an arbitrary 3-bit binary pattern $w \in \{0, 1\}^3$ in an 8-dimensional Hilbert space $\mathcal{H}_8 \cong (\mathbb{C}^2)^{\otimes 3}$. The oracle operator $U_w = I - 2\lvert w \rangle \langle w \rvert$ is synthesized dynamically without hardcoded gate topologies via bit-conditional Pauli-$X$ conjugation around a multi-controlled phase gate ($CCZ$), with strict preservation of Qiskit's little-endian register ordering. By projecting the evolution onto the two-dimensional invariant subspace $\text{span}\{\lvert w^\perp \rangle, \lvert w \rangle\}$, we analytically derive the state vector rotation angle ${2\theta} = 2\arcsin(1/\sqrt{8}) \approx 41.41^\circ$, proving that the optimal iteration count is uniquely $R = \lfloor \frac{\pi}{4}\sqrt{8} \rceil = 2$ with an analytical target probability of $P_2(w) = \frac{121}{128} \approx 94.53\%$. Shot-based simulation on Qiskit's `AerSimulator` ($N_\text{shots} = 4096$) yields an empirical target fidelity of 94.95% ± 0.34%, a Total Variation Distance (TVD) of 0.0066, and 100% detection accuracy across an automated 8-state benchmark sweep.
+This repository presents a fully generalized, dynamic Quantum Pattern Search architecture implemented in Qiskit for an arbitrary 3-bit binary pattern $w \in \lbrace 0, 1 \rbrace^3$ in an 8-dimensional Hilbert space $\mathcal{H} \cong (\mathbb{C}^2)^{\otimes 3}$. The oracle operator $U_w = I - 2\lvert w \rangle \langle w \rvert$ is synthesized dynamically without hardcoded gate topologies via bit-conditional Pauli-$X$ conjugation around a multi-controlled phase gate ($CCZ$), with strict preservation of Qiskit's little-endian register ordering. By projecting the evolution onto the two-dimensional invariant subspace $\text{span}\{\lvert w^\perp \rangle, \lvert w \rangle\}$, we analytically derive the state vector rotation angle ${2\theta} = 2\arcsin(1/\sqrt{8}) \approx 41.41^\circ$, proving that the optimal iteration count is uniquely $R = \lfloor \frac{\pi}{4}\sqrt{8} \rceil = 2$ with an analytical target probability of $\frac{121}{128} \approx 94.53\%$. Shot-based simulation on Qiskit's `AerSimulator` (4096 shots) yields an empirical target fidelity of 94.95% $\pm$ 0.34%, a Total Variation Distance (TVD) of 0.0066, and 100% detection accuracy across an automated 8-state benchmark sweep.
 
 ---
 
@@ -390,7 +390,7 @@ $$
 | $\lvert 010 \rangle$ | 26 | 0.63% | 0.78% | -0.15% |
 | $\lvert 011 \rangle$ | 30 | 0.73% | 0.78% | -0.05% |
 | $\lvert 100 \rangle$ | 21 | 0.51% | 0.78% | -0.27% |
-| **$\lvert 101 \rangle$ (Target)** | **3889** | **94.95% ± 0.34%** | **94.53%** | **+0.42%** |
+| **$\lvert 101 \rangle$ (Target)** | **3889** | **94.95% $\pm$ 0.34%** | **94.53%** | **+0.42%** |
 | $\lvert 110 \rangle$ | 41 | 1.00% | 0.78% | +0.22% |
 | $\lvert 111 \rangle$ | 31 | 0.76% | 0.78% | -0.02% |
 
@@ -433,12 +433,12 @@ $$
 
 | Iteration ($k$) | Empirical $P_k(\lvert 101 \rangle)$ | Theoretical $P_k(w)$ | Subspace Dynamics Regime |
 |:---:|:---:|:---:|---|
-| **0** | 12.33% ± 0.51% | 12.50% | Uniform Superposition Baseline |
-| **1** | 78.05% ± 0.65% | 78.13% | Constructive Amplification |
-| **2** | **94.95% ± 0.34%** | **94.53%** | **Global Maximum (Optimal Stopping $R=2$)** |
-| **3** | 33.15% ± 0.74% | 33.01% | Quantum Over-Rotation (Destructive Interference) |
-| **4** | 2.42% ± 0.24% | 2.39% | Severe Target Suppression |
-| **5** | 40.82% ± 0.77% | 41.02% | Re-Ascending Oscillation Cycle |
+| **0** | 12.33% $\pm$ 0.51% | 12.50% | Uniform Superposition Baseline |
+| **1** | 78.05% $\pm$ 0.65% | 78.13% | Constructive Amplification |
+| **2** | **94.95% $\pm$ 0.34%** | **94.53%** | **Global Maximum (Optimal Stopping $R=2$)** |
+| **3** | 33.15% $\pm$ 0.74% | 33.01% | Quantum Over-Rotation (Destructive Interference) |
+| **4** | 2.42% $\pm$ 0.24% | 2.39% | Severe Target Suppression |
+| **5** | 40.82% $\pm$ 0.77% | 41.02% | Re-Ascending Oscillation Cycle |
 
 ```
 Target Probability P_k(w) (%)
@@ -470,9 +470,7 @@ At $k=3$, the state vector rotates past the target axis $\lvert w \rangle$ towar
 
 ---
 
-## 9. Algorithmic Complexity & Scholarly References
-
-### 9.1 Complexity Analysis
+## 9. Algorithmic Complexity Analysis
 
 | Metric | Classical Deterministic | Classical Randomized | Quantum Pattern Search (Grover) |
 |---|:---:|:---:|:---:|
@@ -480,13 +478,3 @@ At $k=3$, the state vector rotates past the target axis $\lvert w \rangle$ towar
 | **Average Query Complexity** | $(N+1)/2 = 4.5$ | $(N+1)/2 = 4.5$ | **R = 2** |
 | **Asymptotic Complexity** | $\mathcal{O}(N)$ | $\mathcal{O}(N)$ | $\mathbf{\mathcal{O}(\sqrt{N})}$ |
 | **Success Probability (at $R=2$)** | 25.0% (2 queries) | 25.0% (2 queries) | **94.53%** |
-
----
-
-### 9.2 Peer-Reviewed References
-
-1. **Grover, L. K.** (1996). "A fast quantum mechanical algorithm for database search". *Proceedings of the Twenty-Eighth Annual ACM Symposium on Theory of Computing (STOC '96)*, pp. 212–219. [DOI: 10.1145/237814.237866](https://doi.org/10.1145/237814.237866).
-2. **Boyer, M., Brassard, G., Høyer, P., & Tapp, A.** (1998). "Tight bounds on quantum searching". *Fortschritte der Physik: Progress of Physics*, 46(4‐5), 493–505. [DOI: 10.1002/(SICI)1521-3978(199806)46:4/5<493::AID-PROP493>3.0.CO;2-P](https://doi.org/10.1002/(SICI)1521-3978(199806)46:4/5<493::AID-PROP493>3.0.CO;2-P).
-3. **Nielsen, M. A., & Chuang, I. L.** (2010). *Quantum Computation and Quantum Information: 10th Anniversary Edition*. Cambridge University Press. ISBN: 978-1107002173.
-4. **Biamonte, J., Wittek, P., Pancotti, N., Rebentrost, P., Wiebe, N., & Lloyd, S.** (2017). "Quantum machine learning". *Nature*, 549(7671), 195–202. [DOI: 10.1038/nature23474](https://doi.org/10.1038/nature23474).
-5. **Qiskit Community** (2024). *Qiskit: An Open-Source Framework for Quantum Computing*. Zenodo. [DOI: 10.5281/zenodo.2573505](https://doi.org/10.5281/zenodo.2573505).
